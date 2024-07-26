@@ -11,3 +11,20 @@ Welcome to the Solar Executor installation guide. Follow these steps to install 
    ```bash
    curl -s "https://raw.githubusercontent.com/bloxified/solar-executor/main/install-2.sh" -o "install-2.sh"
 
+2. **Make the Script Executable**
+
+   Change the permissions of the script to make it executable by running:
+
+   ```bash 
+   chmod +x install-2.sh
+
+3. **Execute the Script**
+
+   ./install-2.sh
+
+   ```bash 
+   ./install-2.sh
+
+
+
+
