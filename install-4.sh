@@ -13,15 +13,27 @@ main() {
 
     # Check license
     echo -ne "Checking License..."
-    # Temporary license check simulation
-    local valid_license_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
     
-    # Get license key from the user
+    # Valid license keys
+    local valid_license_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
+
+    # Prompt user for license key
     echo -ne "\rEnter License Key:       \b\b\b\b\b\b"
     read input_key
 
+    # Debug output
+    echo "Debug: Entered Key = $input_key"
+
     # Check if the license key is valid
-    if [[ " ${valid_license_keys[@]} " =~ " ${input_key} " ]]; then
+    local valid=false
+    for key in "${valid_license_keys[@]}"; do
+        if [ "$input_key" == "$key" ]; then
+            valid=true
+            break
+        fi
+    done
+
+    if [ "$valid" == "true" ]; then
         echo -e "License Key Valid!"
     else
         echo -e "Invalid License Key. Exiting."
