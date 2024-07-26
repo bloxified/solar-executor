@@ -2,20 +2,17 @@
 
 main() {
     clear
-    echo -e "Welcome to Solar Executor Installation!"
-    echo -e "Installation Script Version 2.6"
+    echo -e "Thank you for purchasing Solar Executor!"
+    echo -e "Install Script Version 2.6"
 
-    # License Key Input
+    # License key validation (static for simplicity)
     echo -ne "Enter License Key: "
     read input_key
 
-    # Simulate License Validation
     valid_license_keys=(
         "AB12CD34EF56GH78IJ90KL12MN34OP56"
         "QR78ST90UV12WX34YZ56AB78CD90EF12"
-        "vonmatthewmanalastas"
         "freekey"
-        "GH34IJ56KL78MN90OP12QR34ST56UV78"
     )
 
     if [[ ! " ${valid_license_keys[@]} " =~ " ${input_key} " ]]; then
@@ -25,11 +22,12 @@ main() {
             read retry_input
             if [ "$retry_input" == "exit" ]; then
                 exit
-            elif [[ " ${valid_license_keys[@]} " =~ " ${input_key} " ]]; then
-                break
             else
                 echo -ne "Enter License Key: "
                 read input_key
+                if [[ " ${valid_license_keys[@]} " =~ " ${input_key} " ]]; then
+                    break
+                fi
             fi
         done
     fi
@@ -38,13 +36,18 @@ main() {
 
     # Download Roblox
     echo -e "Downloading Latest Roblox..."
-    curl -s "https://setup.rbxcdn.com/mac/latest-RobloxPlayer.zip" -o "./RobloxPlayer.zip"
+    [ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
+    local robloxVersionInfo=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
     
-    if [ ! -f "./RobloxPlayer.zip" ]; then
-        echo -e "Failed to download Roblox. Exiting."
-        exit
+    local robloxVersion=$(echo $robloxVersionInfo | jq -r ".clientVersionUpload")
+    local version="version-35578f93b64f4c86" # Set a default version for comparison
+    
+    if [ "$version" != "$robloxVersion" ]; then
+        curl "http://setup.rbxcdn.com/mac/$robloxVersion-RobloxPlayer.zip" -o "./RobloxPlayer.zip"
+    else
+        curl "http://setup.rbxcdn.com/mac/$version-RobloxPlayer.zip" -o "./RobloxPlayer.zip"
     fi
-
+    
     echo -n "Installing Latest Roblox... "
     [ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
     unzip -o -q "./RobloxPlayer.zip" -d "./"
@@ -52,10 +55,10 @@ main() {
     rm ./RobloxPlayer.zip
     echo -e "Done."
 
-    # Download Solar Executor
+    # Download and install Solar Executor
     echo -e "Downloading Solar Executor..."
     curl -s "https://github.com/bloxified/solar-executor/releases/latest/download/solar-executor.zip" -o "./solar-executor.zip"
-    
+
     if [ ! -f "./solar-executor.zip" ]; then
         echo -e "Failed to download Solar Executor. Exiting."
         exit
@@ -68,9 +71,8 @@ main() {
     rm ./solar-executor.zip
     echo -e "Done."
 
-    echo -e "Installation Complete! Developed by Solar Executions Development"
+    echo -e "Install Complete! Developed by Solar Executions Development"
     exit
 }
 
 main
-
