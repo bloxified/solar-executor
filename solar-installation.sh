@@ -6,6 +6,7 @@ main() {
     echo -e "Install Script Version 1.0"
 
     local valid_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
+    local license_valid=false
 
     while true; do
         # Prompt for License Key
@@ -17,6 +18,7 @@ main() {
             echo -ne "Checking License..."
             sleep 2
             echo -e " Done."
+            license_valid=true
             break
         else
             echo -e "Invalid License Key. Please try again or type 'exit' to quit."
@@ -56,4 +58,3 @@ main() {
 }
 
 main
-
