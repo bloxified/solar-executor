@@ -25,6 +25,3 @@ Welcome to the Solar Executor installation guide. Follow these steps to install 
    ```bash 
    ./install-2.sh
 
-
-
-
