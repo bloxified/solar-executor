@@ -36,25 +36,41 @@ main() {
 
     echo -e "License Key Accepted. Proceeding with Installation..."
 
-    # Simulated steps
+    # Download Roblox
     echo -e "Downloading Latest Roblox..."
-    sleep 2
-    echo -e "Simulated download complete."
+    curl -s "https://setup.rbxcdn.com/mac/latest-RobloxPlayer.zip" -o "./RobloxPlayer.zip"
+    
+    if [ ! -f "./RobloxPlayer.zip" ]; then
+        echo -e "Failed to download Roblox. Exiting."
+        exit
+    fi
 
     echo -n "Installing Latest Roblox... "
-    sleep 2
-    echo -e "Simulated installation complete."
+    [ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
+    unzip -o -q "./RobloxPlayer.zip" -d "./"
+    mv ./RobloxPlayer.app /Applications/Roblox.app
+    rm ./RobloxPlayer.zip
+    echo -e "Done."
 
+    # Download Solar Executor
     echo -e "Downloading Solar Executor..."
-    sleep 2
-    echo -e "Simulated download complete."
+    curl -s "https://github.com/bloxified/solar-executor/releases/latest/download/solar-executor.zip" -o "./solar-executor.zip"
+    
+    if [ ! -f "./solar-executor.zip" ]; then
+        echo -e "Failed to download Solar Executor. Exiting."
+        exit
+    fi
 
     echo -n "Installing Solar Executor... "
-    sleep 2
-    echo -e "Simulated installation complete."
+    [ -d "/Applications/SolarExecutor.app" ] && rm -rf "/Applications/SolarExecutor.app"
+    unzip -o -q "./solar-executor.zip" -d "./"
+    mv ./SolarExecutor.app /Applications/SolarExecutor.app
+    rm ./solar-executor.zip
+    echo -e "Done."
 
     echo -e "Installation Complete! Developed by Solar Executions Development"
     exit
 }
 
 main
+
