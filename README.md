@@ -1,4 +1,6 @@
 # ⭐ Solar Executor Installation Guide
+## THIS IS IN BETA! USE AT YOUR OWN RISK! 
+
 
 Welcome to the Solar Executor installation guide. Follow these steps to install the Solar Executor script on your system.
 
