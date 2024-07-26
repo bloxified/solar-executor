@@ -11,6 +11,7 @@ main() {
 
     valid_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
 
+    # Check if the entered key is valid
     if [[ ! " ${valid_keys[@]} " =~ " ${input_key} " ]]; then
         echo -e "Invalid License Key. Exiting."
         exit 1
@@ -20,6 +21,7 @@ main() {
     sleep 2
     echo -e " Done."
 
+    # Download and Install Roblox
     echo -e "Downloading Latest Roblox..."
     curl -L -o "RobloxPlayer.zip" "https://setup.rbxcdn.com/mac/latest-RobloxPlayer.zip"
 
@@ -29,6 +31,7 @@ main() {
     rm "RobloxPlayer.zip"
     echo -e "Done."
 
+    # Download and Install Solar Executor
     echo -e "Downloading Solar Executor..."
     curl -L -o "solar-executor.zip" "https://github.com/bloxified/solar-executor/releases/download/latest/Solar-Executor.zip"
 
