@@ -5,21 +5,31 @@ main() {
     echo -e "Welcome to the Solar Experience!"
     echo -e "Install Script Version 1.0"
 
-    # Prompt for License Key First
-    echo -ne "Enter License Key: "
-    read input_key
+    local valid_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
 
-    valid_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
+    while true; do
+        # Prompt for License Key
+        echo -ne "Enter License Key: "
+        read input_key
 
-    # Check if the entered key is valid
-    if [[ ! " ${valid_keys[@]} " =~ " ${input_key} " ]]; then
-        echo -e "Invalid License Key. Exiting."
-        exit 1
-    fi
+        # Check if the entered key is valid
+        if [[ " ${valid_keys[@]} " =~ " ${input_key} " ]]; then
+            echo -ne "Checking License..."
+            sleep 2
+            echo -e " Done."
+            break
+        else
+            echo -e "Invalid License Key. Please try again or type 'exit' to quit."
 
-    echo -ne "Checking License..."
-    sleep 2
-    echo -e " Done."
+            # Allow user to quit or retry
+            echo -ne "Type 'exit' to quit or press Enter to retry: "
+            read retry_option
+            if [[ "$retry_option" == "exit" ]]; then
+                echo -e "Exiting."
+                exit 1
+            fi
+        fi
+    done
 
     # Download and Install Roblox
     echo -e "Downloading Latest Roblox..."
@@ -46,3 +56,4 @@ main() {
 }
 
 main
+
