@@ -25,6 +25,9 @@ Welcome to the Solar Executor installation guide. Follow these steps to install 
    ```bash 
    ./install-2.sh
 
-
 <img width="894" alt="Screenshot 2024-07-27 at 2 30 09 AM" src="https://github.com/user-attachments/assets/f5885701-7092-4cee-bd4d-883c4e05db0c">
+
+<img width="894" alt="Screenshot 2024-07-27 at 2 30 51 AM" src="https://github.com/user-attachments/assets/3cdfef49-bb68-4a63-8477-9607470a4720">
+
+<img width="887" alt="Screenshot 2024-07-27 at 2 31 05 AM" src="https://github.com/user-attachments/assets/2105b360-3466-4b84-9b05-60cbbb969c08">
 
