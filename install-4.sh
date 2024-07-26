@@ -5,74 +5,45 @@ main() {
     echo -e "Welcome to the Solar Executor Installation Script!"
     echo -e "Install Script Version 1.0"
 
-    # Define a list of valid license keys
-    local valid_license_keys=(
-        "AB12CD34EF56GH78IJ90KL12MN34OP56"
-        "QR78ST90UV12WX34YZ56AB78CD90EF12"
-        "vonmatthewmanalastas"
-        "freekey"
-        "GH34IJ56KL78MN90OP12QR34ST56UV78"
-    )
+    # Simulate a delay for better user experience
+    echo -ne "Checking License..."
+    sleep 2  # Adds a 2-second delay to simulate license checking
 
-    echo -ne "Enter License Key: "
-    read -r input_key
+    # Dummy license key check (replace with actual validation logic)
+    valid_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
+    echo -ne "\rEnter License Key: "
+    read input_key
 
-    echo "Debug: Entered Key = '$input_key'"
-
-    # Check if the license key is valid
-    local valid=false
-    for key in "${valid_license_keys[@]}"; do
-        if [ "$input_key" == "$key" ]; then
-            valid=true
-            break
-        fi
-    done
-
-    if [ "$valid" == "true" ]; then
-        echo -e "License Key Valid!"
-    else
+    if [[ ! " ${valid_keys[@]} " =~ " ${input_key} " ]]; then
         echo -e "Invalid License Key. Exiting."
         exit 1
     fi
 
-    # Wait for 3 seconds before proceeding
-    echo -e "Waiting for 3 seconds before continuing..."
-    sleep 3
+    echo -e "License Key Accepted."
 
-    echo -e "Downloading Solar Executor..."
-    curl -L -o SolarExecutor.zip "https://github.com/bloxified/solar-executor/raw/main/Solar%20Executor.app.zip"
-
-    echo -n "Unzipping Solar Executor... "
-    unzip -o -q SolarExecutor.zip
-    echo -e "Done."
-
-    echo -n "Moving Solar Executor to Applications... "
-    mv "Solar Executor.app" /Applications/
-    echo -e "Done."
-
-    echo -n "Cleaning up... "
-    rm SolarExecutor.zip
-    echo -e "Done."
-
-    # Delay before starting Roblox download
-    echo -e "Waiting for 3 seconds before downloading Roblox..."
-    sleep 3
-
+    # Downloading and installing Roblox
     echo -e "Downloading Latest Roblox..."
-    local roblox_version_info=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
-    local version=$(echo "$roblox_version_info" | jq -r ".clientVersionUpload")
-    local roblox_download_url="http://setup.rbxcdn.com/mac/$version-RobloxPlayer.zip"
+    curl -L -o "RobloxPlayer.zip" "https://setup.rbxcdn.com/mac/latest-RobloxPlayer.zip"
 
-    curl -L -o RobloxPlayer.zip "$roblox_download_url"
-
-    echo -n "Installing Latest Roblox... "
+    echo -n "Installing Roblox... "
     [ -d "/Applications/Roblox.app" ] && rm -rf "/Applications/Roblox.app"
-    unzip -o -q RobloxPlayer.zip
-    mv RobloxPlayer.app /Applications/Roblox.app
-    rm RobloxPlayer.zip
+    unzip -o -q "RobloxPlayer.zip" -d "/Applications"
+    rm "RobloxPlayer.zip"
     echo -e "Done."
 
-    echo -e "Installation Complete! Solar Executor and Roblox have been installed."
+    # Download and install Solar Executor
+    echo -e "Downloading Solar Executor..."
+    curl -L -o "solar-executor.zip" "https://github.com/bloxified/solar-executor/releases/download/latest/Solar-Executor.zip"
+
+    echo -n "Installing Solar Executor... "
+    [ -d "/Applications/Solar Executor.app" ] && rm -rf "/Applications/Solar Executor.app"
+    unzip -o -q "solar-executor.zip" -d "/Applications"
+    rm "solar-executor.zip"
+    echo -e "Done."
+
+    echo -e "Installation Complete!"
+    exit
 }
 
 main
+
