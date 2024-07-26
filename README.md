@@ -1,4 +1,4 @@
-# Solar Executor Installation Guide
+# ⭐ Solar Executor Installation Guide
 
 Welcome to the Solar Executor installation guide. Follow these steps to install the Solar Executor script on your system.
 
