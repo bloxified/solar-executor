@@ -5,26 +5,21 @@ main() {
     echo -e "Welcome to the Solar Experience!"
     echo -e "Install Script Version 1.0"
 
-    # Simulate a delay for better user experience
-    echo -ne "Checking License..."
-    sleep 2  # Adds a 2-second delay to simulate license checking
+    # Prompt for License Key First
+    echo -ne "Enter License Key: "
+    read input_key
 
-    # Dummy license key check (replace with actual validation logic)
     valid_keys=("AB12CD34EF56GH78IJ90KL12MN34OP56" "QR78ST90UV12WX34YZ56AB78CD90EF12" "vonmatthewmanalastas" "freekey" "GH34IJ56KL78MN90OP12QR34ST56UV78")
-    
-    while true; do
-        echo -ne "\rEnter License Key: "
-        read input_key
 
-        if [[ " ${valid_keys[@]} " =~ " ${input_key} " ]]; then
-            echo -e "License Key Accepted."
-            break
-        else
-            echo -e "Invalid License Key. Please try again."
-        fi
-    done
+    if [[ ! " ${valid_keys[@]} " =~ " ${input_key} " ]]; then
+        echo -e "Invalid License Key. Exiting."
+        exit 1
+    fi
 
-    # Downloading and installing Roblox
+    echo -ne "Checking License..."
+    sleep 2
+    echo -e " Done."
+
     echo -e "Downloading Latest Roblox..."
     curl -L -o "RobloxPlayer.zip" "https://setup.rbxcdn.com/mac/latest-RobloxPlayer.zip"
 
@@ -34,7 +29,6 @@ main() {
     rm "RobloxPlayer.zip"
     echo -e "Done."
 
-    # Download and install Solar Executor
     echo -e "Downloading Solar Executor..."
     curl -L -o "solar-executor.zip" "https://github.com/bloxified/solar-executor/releases/download/latest/Solar-Executor.zip"
 
